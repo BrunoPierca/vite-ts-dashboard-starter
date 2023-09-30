@@ -1,27 +1,34 @@
-# React + TypeScript + Vite
+This project will help you get better results at '¿Como venimos?' type questions from your boss or project manager.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Right now this project is using the following tech:
+React
+Typescript
+Material UI
+Axios
+React Query
+SCSS
+Zustand
 
-Currently, two official plugins are available:
+This project will serve as a base for any and all CRUD Dashboard frontend applications aswell as being the scaffolding for a CLI Tool that will create:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This tool will need these arguments:
+   {
+      singularName
+      PluralName
+      ModuleTemplateSourceCode
+      ThisStarterProjectSourceCode
+   }
 
-## Expanding the ESLint configuration
+And will output:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   --Module:
+      -A folder inside './src/pages' called $singularName 
+         -A components directory
+            -$singularNameModal.tsx
+         -A main $singularName.tsx file
 
-- Configure the top-level `parserOptions` property like this:
+      -A file inside './src/services/api' called $singularName.ts 
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+      -An empty type interface at './src/interfaces/index.ts'
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+      -A basic store in a file './src/store/$singularName.ts' with get, set, and a couple of actions using Zustand
