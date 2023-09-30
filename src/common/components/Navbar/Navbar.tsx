@@ -20,8 +20,9 @@ const getAppBarSX = (theme: Theme, open: boolean) => ({
 
 
 export const Navbar = () => {
-    const [open, setOpen] = useState(false);
+
     const theme = useTheme()
+    const [open, setOpen] = useState(false);
 
     const location = useLocation()
     const isInDashboard = useMemo(() => location.pathname.includes('/auth') ? false : true, [location])
@@ -42,11 +43,6 @@ export const Navbar = () => {
                         <MenuIcon sx={{ color: pallete.primary.lighter }} />
                     </IconButton>}
                     <Grid container direction='row' >
-                        {/* <Typography variant='h6' noWrap component='div' className='animate__animated animate__backInRight' 
-                    sx={iconColorSx}
-                    >
-                    Your company name
-                </Typography> */}
                         <img src="/images/powerStaffingLogo.png" alt="logo company name" height='50px' />
                     </Grid>
                 </Toolbar>

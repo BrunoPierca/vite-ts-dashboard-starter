@@ -1,13 +1,50 @@
-import { Typography, Drawer, Box, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip, useTheme, Theme } from '@mui/material'
+import { Typography, Drawer, Box, Divider, IconButton, List, useTheme, Theme } from '@mui/material'
 
 // Icons
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import pallete from '../../../../theme/pallete'
+import { DrawerNestItem } from './DrawerNestItem';
+import { DrawerItem } from './DrawerItem';
+import { items } from '../Items';
 
 interface Props {
     open: boolean,
     setOpen: (value: boolean) => void
+}
+
+export const SideDrawer = ({ open, setOpen }: Props) => {
+    const theme = useTheme()
+
+    return (
+        <Drawer open={open} variant="permanent" sx={getDrawerSX(theme, open)}>
+            <Box sx={{
+                backgroundColor: pallete.secondary.dark,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                padding: 1,
+                ...theme.mixins.toolbar
+            }}>
+                <Typography sx={{ color: pallete.primary.lighter, fontWeight: "bold", fontSize: "1.2rem" }}> CONTROL PANEL </Typography>
+                <IconButton onClick={() => setOpen(!open)} sx={{ color: pallete.primary.lighter }}>
+                    <ChevronLeftIcon />
+                </IconButton>
+            </Box>
+
+            <List sx={{ backgroundColor: pallete.secondary.dark, flexGrow: "1", flexDirection: "column" }}>
+                {open ? <Divider /> : ""}
+                {
+                    items.map((item) => {
+                        return item.children ?
+                            <DrawerNestItem handleDrawerClose={setOpen} open={open} setOpen={setOpen} {...item} key={item.title} /> :
+                            <DrawerItem handleDrawerClose={setOpen} open={open} {...item} key={item.title} />
+                    })
+                }
+
+            </List>
+        </Drawer>
+    )
 }
 
 export const drawerWidth = 240 //px
@@ -35,6 +72,8 @@ const closedDrawerSx = (theme: Theme) => ({
     },
 })
 
+
+
 const getDrawerSX = (theme: Theme, open: boolean) => {
     const additionalProps = open ? openDrawerSx(theme) : closedDrawerSx(theme)
     return {
@@ -44,40 +83,6 @@ const getDrawerSX = (theme: Theme, open: boolean) => {
         "& .MuiDrawer-paper": additionalProps,
         ...additionalProps
     }
-}
-
-
-export const SideDrawer = ({ open, setOpen }: Props) => {
-    const theme = useTheme()
-
-    return (
-        <Drawer open={open} sx={getDrawerSX(theme, open)}>
-            <Box sx={{
-                backgroundColor: pallete.secondary.dark, display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                padding: 1,
-                ...theme.mixins.toolbar
-            }}>
-                <Typography sx={{ color: pallete.primary.lighter, fontWeight: "bold", fontSize: "1.2rem" }}> CONTROL PANEL </Typography>
-                <IconButton onClick={() => setOpen(!open)} sx={{ color: pallete.primary.lighter }}>
-                    <ChevronLeftIcon />
-                </IconButton>
-            </Box>
-
-            <List sx={{ backgroundColor: pallete.secondary.dark, flexGrow: "1", flexDirection: "column" }}>
-                {open ? <Divider /> : ""}
-                {/* {
-            items.map((item) => {
-                return item.children
-                    ? <NavbarNestedItem handleDrawerClose={handleDrawerClose} open={open} setOpen={setOpen} {...item} key={item.title} />
-                    : <NavbarItem handleDrawerClose={handleDrawerClose} open={open} {...item} key={item.title} />
-            })
-        } */}
-
-            </List>
-        </Drawer>
-    )
 }
 
 
