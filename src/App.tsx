@@ -4,6 +4,9 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { DashboardRoutes } from "./routes/DashboardRoutes"
 import { AuthRoutes } from "./routes/AuthRoutes"
 import { Navbar } from "./common/components/Navbar"
+import { CustomAlert } from "./common/components"
+
+const queryClient = new QueryClient()
 
 function App() {
 
@@ -13,9 +16,9 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <QueryClientProvider client={new QueryClient()}>
+        <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-            <Navbar/>
+            <Navbar />
             <Routes>
               {
                 status === 'authenticated'
@@ -24,7 +27,7 @@ function App() {
               }
               <Route path="/*" element={<Navigate to={'/auth/login'} />} />
             </Routes>
-          {/* <CustomAlert isOpen={isOpen} /> */}
+            <CustomAlert />
           </BrowserRouter>
         </QueryClientProvider>
       </ThemeProvider>
